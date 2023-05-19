@@ -4,7 +4,7 @@
   "description": "Misc Mikrotik configuration scripts using the API",
   "type": "module",
   "dependencies": {
-    "mikroapi": "^2.0.0"
+    "mikroapi": "^2.0.1"
   },
   "author": "jesse.tane@gmail.com",
   "license": "MIT"
