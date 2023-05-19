@@ -1,0 +1,11 @@
+{
+  "name": "mt-scripts",
+  "version": "1.0.0",
+  "description": "Misc Mikrotik configuration scripts using the API",
+  "type": "module",
+  "dependencies": {
+    "mikroapi": "^2.0.0"
+  },
+  "author": "jesse.tane@gmail.com",
+  "license": "MIT"
+}

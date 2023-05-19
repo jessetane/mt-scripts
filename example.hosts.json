@@ -1,0 +1,17 @@
+{
+  "example": {
+    "host": "192.168.88.1",
+    "port": 8728,
+    "username": "admin",
+    "password": "admin"
+  },
+  "example-secure": {
+    "host": "192.168.88.1",
+    "port": 8729,
+    "username": "admin",
+    "password": "admin",
+		"tls": {
+			"rejectUnauthorized": true 
+		}
+  }
+}
