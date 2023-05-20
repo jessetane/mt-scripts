@@ -9,9 +9,9 @@ Needed some basic network automation tooling.
 
 ## Example
 ``` shell
-$ cd mt-scripts
-$ cp example.hosts.json hosts.json # if hosts.json does not already exist
-$ vim hosts.json # edit accordingly if necessary
+$ cd mt-scripts && npm install
+$ cp example.hosts.json hosts.json
+$ vim hosts.json # edit accordingly
 $ ./ensure-user.js hostname username group password 'ssh-rsa pubkeydata user@host'
 ```
 

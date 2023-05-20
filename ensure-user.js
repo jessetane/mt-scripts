@@ -43,8 +43,7 @@ async function ensureUser (host, user, group, password, sshKey) {
 	}
 
 	if (sshKey) {
-		// ssh-keys
-		// first ensure password login is allowed
+		// ensure password login is allowed
 		let res = await api.exec('/ip/ssh/print')
 		if (res[0]['always-allow-password-login'] === 'false') {
 			console.log('ssh: enabling always-allow-password-login')
@@ -75,12 +74,11 @@ async function ensureUser (host, user, group, password, sshKey) {
 		})
 		// import key (erases file automatically)
 		console.log(`importing ssh key ${sshKey}`)
-		res = await api.exec('/user/ssh-keys/import', {
+		await api.exec('/user/ssh-keys/import', {
 			'public-key-file': file,
 			user
 		})
 	}
 	
-	// close connection to host
 	api.close()
 }
