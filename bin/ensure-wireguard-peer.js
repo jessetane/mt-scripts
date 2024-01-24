@@ -12,4 +12,4 @@ const publicKey = args[1]
 const ipAddress = args[2]
 const comment = args[3]
 
-ensureWireguardPeer(hosts[host], publicKey, ipAddress, comment)
+ensureWireguardPeer(hosts[host], { publicKey, ipAddress, comment, script: true })

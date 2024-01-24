@@ -13,4 +13,4 @@ const group = args[2]
 const password = args[3]
 const sshKey = args[4]
 
-ensureUser(hosts[host], user, group, password, sshKey)
+ensureUser(hosts[host], { user, group, password, sshKey, script: true })

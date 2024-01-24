@@ -3,7 +3,7 @@ import MikroApi from 'mikroapi'
 export default ensureUser
 
 async function ensureUser (host, opts) {
-	const { user, group, password, sshKey } = opts
+	const { user, group, password, sshKey, script } = opts
 
 	// configure api client and connect to host
 	const api = new MikroApi(host)
@@ -13,7 +13,7 @@ async function ensureUser (host, opts) {
 	let users = await api.exec('/user/print')
 	if (users.find(u => u.name === user)) {
 		// user exists
-		console.log(`found existing user ${user}, updating`)
+		if (script) console.log(`found existing user ${user}, updating`)
 		await api.exec('/user/set', {
 			'.id': user,
 			group,
@@ -21,7 +21,7 @@ async function ensureUser (host, opts) {
 		})
 	} else {
 		// create new user
-		console.log(`creating new user ${user}`)
+		if (script) console.log(`creating new user ${user}`)
 		await api.exec('/user/add', {
 			name: user,
 			group,
@@ -33,7 +33,7 @@ async function ensureUser (host, opts) {
 		// ensure password login is allowed
 		let res = await api.exec('/ip/ssh/print')
 		if (res[0]['always-allow-password-login'] === 'false') {
-			console.log('ssh: enabling always-allow-password-login')
+			if (script) console.log('ssh: enabling always-allow-password-login')
 			await api.exec('/ip/ssh/set', {
 				'always-allow-password-login': 'yes'
 			})
@@ -42,7 +42,7 @@ async function ensureUser (host, opts) {
 		const keys = await api.exec('/user/ssh-keys/print') || []
 		for (let k of keys) {
 			if (k.user === user) {
-				console.log(`removing existing ssh key ${JSON.stringify(k)}`)
+				if (script) console.log(`removing existing ssh key ${JSON.stringify(k)}`)
 				await api.exec('/user/ssh-keys/remove', { '.id': k['.id'] })
 			}
 		}
@@ -60,7 +60,7 @@ async function ensureUser (host, opts) {
 			contents: sshKey
 		})
 		// import key (erases file automatically)
-		console.log(`importing ssh key ${sshKey}`)
+		if (script) console.log(`importing ssh key ${sshKey}`)
 		await api.exec('/user/ssh-keys/import', {
 			'public-key-file': file,
 			user
