@@ -1,25 +1,12 @@
-#!/usr/bin/env node
-
 import MikroApi from 'mikroapi'
-import fs from 'fs/promises'
 
-const hostsJson = await fs.readFile('./hosts.json', 'utf8')
-const hosts = JSON.parse(hostsJson)
+export default ensureUser
 
-const args = process.argv.slice(2)
-const host = args[0]
-const user = args[1]
-const group = args[2]
-const password = args[3]
-const sshKey = args[4]
+async function ensureUser (host, opts) {
+	const { user, group, password, sshKey } = opts
 
-ensureUser(host, user, group, password, sshKey)
-
-async function ensureUser (host, user, group, password, sshKey) {
 	// configure api client and connect to host
-	const config = hosts[host]
-	if (!config) throw new Error(`unknown host ${host}`)
-	const api = new MikroApi(config)
+	const api = new MikroApi(host)
 	await api.connect()
 
 	// create or update user

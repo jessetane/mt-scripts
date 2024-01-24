@@ -12,7 +12,7 @@ Needed some basic network automation tooling.
 $ cd mt-scripts && npm install
 $ cp example.hosts.json hosts.json
 $ vim hosts.json # edit accordingly
-$ ./ensure-user.js hostname username group password 'ssh-rsa pubkeydata user@host'
+$ ./bin/ensure-user.js hostname username group password 'ssh-rsa pubkeydata user@host'
 ```
 
 ## License

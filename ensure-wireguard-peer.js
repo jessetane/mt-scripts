@@ -1,26 +1,12 @@
-#!/usr/bin/env node
-
 import MikroApi from 'mikroapi'
-import fs from 'fs/promises'
 
-const hostsJson = await fs.readFile('./hosts.json', 'utf8')
-const hosts = JSON.parse(hostsJson)
+export default ensureWireguardPeer
 
-const args = process.argv.slice(2)
-const host = args[0]
-const publicKey = args[1]
-const ipAddress = args[2]
-const comment = args[3]
-
-ensureWireguardPeer(host, publicKey, ipAddress, comment)
-
-async function ensureWireguardPeer (host, publicKey, ipAddress, comment) {
-	// get host info from db 
-	const config = hosts[host]
-	if (!config) throw new Error(`unknown host ${host}`)
+async function ensureWireguardPeer (host, opts) {
+	const { publicKey, ipAddress, comment } = opts
 
 	// setup api client
-	const api = new MikroApi(config)
+	const api = new MikroApi(host)
 	await api.connect()
 
 	// get server info
