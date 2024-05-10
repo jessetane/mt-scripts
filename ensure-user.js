@@ -49,7 +49,7 @@ async function ensureUser (host, opts) {
 		// create file to hold pub key data 
 		const file = `${user}.ssh-pub-key.txt`
 		res = []
-		while (!res.find(f => f.name === file)) {
+		while (res && !res.find(f => f.name === file)) {
 			// check to see if file was created every 1/2 second
 			res = await api.exec('/file/print', { file })
 			await new Promise(r => setTimeout(r, 500))
