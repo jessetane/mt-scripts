@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Misc Mikrotik configuration scripts using the API",
   "type": "module",
+  "exports": {
+    "./*": "./*"
+  },
   "dependencies": {
     "mikroapi": "^2.0.1"
   },
